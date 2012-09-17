@@ -14,7 +14,7 @@ resolvers += "repo.novus snaps" at "http://repo.novus.com/snapshots/"
 
 resolvers += "Sonatype Snapshot repo" at "http://oss.sonatype.org/content/repositories/snapshots"
 
-libraryDependencies +=  "com.novus" %% "salat" % "1.9.0"
+libraryDependencies +=  "com.novus" %% "salat" % "1.9.1"
 
 libraryDependencies +=   "org.specs2" %% "specs2" % "1.12.1" % "test"
 
