@@ -17,6 +17,10 @@ import org.scala_tools.time.Imports.DateTime
 
 class TestSpec extends Specification with Tags{
 
+  com.mongodb.casbah.commons.conversions.scala.RegisterConversionHelpers()
+  com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHelpers()
+
+
   "Test Item" should {
     "be converted to Json " in {
          
