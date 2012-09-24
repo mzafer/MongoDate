@@ -3,8 +3,10 @@ package test
 import org.specs2.mutable.Specification
 import org.bson.types.ObjectId
 import model.TestItem
+import model.WeekLabel
 import org.specs2.mutable.Tags
 import org.scala_tools.time.Imports._
+import model.Weekday
 
 class TestSpec extends Specification with Tags {
 
@@ -14,6 +16,9 @@ class TestSpec extends Specification with Tags {
   val id = new ObjectId
   val date = new DateTime(1347721297674L).withZone(DateTimeZone.forID("US/Eastern"))
   val testItem = TestItem(id = id, name = "Test Item", date = Some(date))
+  
+  
+ 
 
   "Test Item" should {
     "be converted to Json " in {
@@ -23,7 +28,7 @@ class TestSpec extends Specification with Tags {
       newItem must_== testItem
       TestItem.insert(newItem) must beSome(id)
       TestItem.findOneById(id) must beSome(testItem)
-    } tag ("testItem")
+    } tag ("testJson")
 
 
     "be converted from Json " in {
@@ -33,7 +38,30 @@ class TestSpec extends Specification with Tags {
       val newJsonStr = TestItem.toCompactJson(testItem)
       println("Json Str after creating a testItem object from a jsonStr :" + newJsonStr)
       newJsonStr must_== jsonStr
-    } tag ("testItem")
+    } tag ("testJson")
+    
+    "be inserted with a weeklabel " in {
+      val oid = new ObjectId
+      val weekdayLabel = WeekLabel(name="Monday", weekday=Some(Weekday.Monday))
+      val testLabelItem = TestItem(id = oid, name = "Test Label Item", labels=Set(weekdayLabel))
+      TestItem.insert(testLabelItem) must beSome(oid)
+      val itemFromDB = TestItem.findOneById(oid)
+      itemFromDB must beSome(testLabelItem)
+      val jsonStr = TestItem.toPrettyJson(itemFromDB.get) 
+      println(jsonStr)
+      TestItem.fromJSON(jsonStr) must_== itemFromDB
+     } tag ("testEnum")
+
+    "be inserted with a empty Label" in {
+      val oid = new ObjectId
+      val testEmptyLabelItem = TestItem(id = oid, name = "Test Empty Label Item")
+      TestItem.insert(testEmptyLabelItem) must beSome(oid)
+      val itemFromDB = TestItem.findOneById(oid)
+      itemFromDB must beSome(testEmptyLabelItem)
+      val jsonStr = TestItem.toPrettyJson(itemFromDB.get)
+      println(jsonStr)
+      TestItem.fromJSON(jsonStr) must_== itemFromDB
+    } tag ("testEnum")
 
   }
 

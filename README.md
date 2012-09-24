@@ -56,4 +56,10 @@ We'll see the below error for the first test case
 	ors.scala:61)
 
 
-Note that I have not used JodaDateTimeConvertors from casbah, using that does not change the above results. Also if you check your local database you'll notice that date is stored as int32 or String type based on the chosen DateStrategy 
+Note that I have not used JodaDateTimeConvertors from casbah, using that does not change the above results. Also if you check your local database you'll notice that date is stored as int32 or String type based on the chosen DateStrategy
+
+Added Test cases for JSON Enum.
+
+To test run
+
+	>test-only -- include testEnum 
