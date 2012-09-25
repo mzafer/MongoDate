@@ -8,6 +8,7 @@ import json.TimestampDateStrategy
 import org.joda.time.DateTimeZone
 import org.scala_tools.time.Imports._
 import com.novus.salat.StringTypeHintStrategy
+import model.alt._
 
 package object salat_context {
   
@@ -19,6 +20,8 @@ package object salat_context {
       override val jsonConfig =  JSONConfig(objectIdStrategy = StringObjectIdStrategy
           ,dateStrategy = TimestampDateStrategy(DateTimeZone.forID("US/Eastern"))
           )
+       registerCaseObjectOverride[Weekday, Sunday.type]("Sun")
+      registerCaseObjectOverride[Weekday, Monday.type]("Mon")
     }
     context
   }

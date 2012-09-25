@@ -26,7 +26,9 @@ object Weekday extends Enumeration {
 case class TestItem(@Key("_id") id: ObjectId = new ObjectId,
                      name: String,
                      date: Option[DateTime] = None,
-                     labels:Set[WeekLabel] = Set.empty)
+                     labels:Set[WeekLabel] = Set.empty
+                     
+)
 
 object TestItem extends ModelCompanion[TestItem, ObjectId] {
   val collection = MongoConnection()("Omm")("TestItem")
